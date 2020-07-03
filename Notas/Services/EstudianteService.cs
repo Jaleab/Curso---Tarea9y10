@@ -12,16 +12,16 @@ namespace Notas.Services
     public class EstudianteService
     {
         private SqlConnection con;
-        private void Connection()
+        private void connection()
         {
-            string constring = ConfigurationManager.ConnectionStrings["NotasDBEntities1"].ToString();
+            string constring = ConfigurationManager.ConnectionStrings["NotasDBEntities"].ToString();
             con = new SqlConnection(constring);
         }
 
         public List<EstudianteModel> GetEstudiantes() {
-            Connection();
+            connection();
             string consulta =
-               "SELECT E.carne, E.nombre, E.apellido, E.apellido2 " +
+               "SELECT E.carne, E.nombre, E.apellido, E.apellido2, E.nombre + ' ' + E.apellido + ' ' + E.apellido2 AS [nombre completo] " +
                "FROM Estudiante E " +
                "ORDER BY E.carne ";
 
@@ -44,9 +44,33 @@ namespace Notas.Services
                         nombre = Convert.ToString(dr["nombre"]),
                         apellido = Convert.ToString(dr["apellido"]),
                         apellido2 = Convert.ToString(dr["apellido2"]),
+                        nombreCompleto = Convert.ToString(dr["nombre completo"]),
                     });
             }
             return listaEstudiantes;
+        }
+
+        public void AgregarEstudiante(EstudianteModel estudiante)
+        {
+            connection();
+
+            String[] infoEstudiante = estudiante.nombreCompleto.Split();
+            string consulta =
+               "INSERT INTO Estudiante(carne, nombre, apellido, apellido2) " +
+               "VALUES(@carne, @nombre, @apellido, @apellido2) ";
+
+            SqlCommand cmd = new SqlCommand(consulta, con);
+            cmd.Parameters.AddWithValue("@carne", estudiante.carne);
+            cmd.Parameters.AddWithValue("@nombre", infoEstudiante[0]);
+            cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
+            cmd.Parameters.AddWithValue("@apellido2", infoEstudiante[2]);
+
+            SqlDataAdapter sd = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
         }
     }
 }
