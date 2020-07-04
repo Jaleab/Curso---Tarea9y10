@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Notas.Models.EstudianteModel>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerEstudiantes</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido2)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellido2)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.carne }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.carne }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.carne })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>
