@@ -25,8 +25,8 @@ namespace Notas.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CursoModel> CursoModels { get; set; }
         public virtual DbSet<EstudianteModel> EstudianteModels { get; set; }
-        public virtual DbSet<LlevaModel> LlevaModels { get; set; }
+        public virtual DbSet<EvaluacionModel> EvaluacionModels { get; set; }
+        public virtual DbSet<TieneModel> TieneModels { get; set; }
     }
 }

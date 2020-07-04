@@ -1,9 +1,5 @@
 ﻿using Notas.Models;
 using Notas.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Notas.Controllers
@@ -32,11 +28,12 @@ namespace Notas.Controllers
         {
             EstudianteService estudianteService = new EstudianteService();
             estudianteService.AgregarEstudiante(estudiante);
+
+            EvaluacionService evaluacionService = new EvaluacionService();
+            evaluacionService.AgregarEvaluacion(estudiante.carne);
+
             TempData["mensaje"] = "El estudiante " + estudiante.nombreCompleto + " ha sido agregado al curso.";
             return RedirectToAction("VerEstudiantes");
         }
-
-
-
     }
 }

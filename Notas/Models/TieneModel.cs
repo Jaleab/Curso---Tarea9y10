@@ -12,13 +12,13 @@ namespace Notas.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class LlevaModel
+    public partial class TieneModel
     {
         public string carneEstudianteFK { get; set; }
-        public string siglasCursoFK { get; set; }
+        public int evaluacionIdFK { get; set; }
         public Nullable<int> notaCurso { get; set; }
     
-        public virtual CursoModel Curso { get; set; }
         public virtual EstudianteModel Estudiante { get; set; }
+        public virtual EvaluacionModel Evaluacion { get; set; }
     }
 }

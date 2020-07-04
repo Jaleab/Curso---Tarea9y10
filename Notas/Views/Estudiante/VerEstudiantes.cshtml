@@ -34,7 +34,7 @@
                         @Html.DisplayFor(modelItem => item.nombreCompleto)
                     </td>
                     <td>
-                        <a href="@Url.Action("Details", "Details", new { id = item.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+                        <a href="@Url.Action("Details", "Evaluacion", new { carne = item.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
                     </td>
                 </tr>
             }

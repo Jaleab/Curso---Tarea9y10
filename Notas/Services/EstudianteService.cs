@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace Notas.Services
 {
     public class EstudianteService
     {
         private SqlConnection con;
+        private SqlCommand cmd = new SqlCommand();
+        private SqlDataAdapter sd = new SqlDataAdapter();
+        private DataTable dt = new DataTable();
+
         private void connection()
         {
             string constring = ConfigurationManager.ConnectionStrings["NotasDBEntities"].ToString();
@@ -25,9 +27,9 @@ namespace Notas.Services
                "FROM Estudiante E " +
                "ORDER BY E.carne ";
 
-            SqlCommand cmd = new SqlCommand(consulta, con);
-            SqlDataAdapter sd = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
+            cmd.CommandText = consulta;
+            cmd.Connection = con;
+            sd.SelectCommand = cmd;
 
             con.Open();
             sd.Fill(dt);
@@ -54,7 +56,9 @@ namespace Notas.Services
         {
             connection();
 
-            String[] infoEstudiante = estudiante.nombreCompleto.Split();
+            char[] separadores = { ' ', ',' };
+            Int32 n = 3;
+            string[] infoEstudiante = estudiante.nombreCompleto.Split(separadores, n);
             string consulta =
                "INSERT INTO Estudiante(carne, nombre, apellido, apellido2) " +
                "VALUES(@carne, @nombre, @apellido, @apellido2) ";
@@ -63,7 +67,14 @@ namespace Notas.Services
             cmd.Parameters.AddWithValue("@carne", estudiante.carne);
             cmd.Parameters.AddWithValue("@nombre", infoEstudiante[0]);
             cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
-            cmd.Parameters.AddWithValue("@apellido2", infoEstudiante[2]);
+            if (infoEstudiante.Length > 2)
+            {
+                cmd.Parameters.AddWithValue("@apellido2", infoEstudiante[2]);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@apellido2", null);
+            }
 
             SqlDataAdapter sd = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

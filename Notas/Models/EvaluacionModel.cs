@@ -12,16 +12,15 @@ namespace Notas.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CursoModel
+    public partial class EvaluacionModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CursoModel()
+        public EvaluacionModel()
         {
-            this.Llevas = new HashSet<LlevaModel>();
+            this.Tienes = new HashSet<TieneModel>();
         }
     
-        public string siglas { get; set; }
-        public string nombre { get; set; }
+        public int evaluacionId { get; set; }
         public Nullable<int> notaCCQT { get; set; }
         public string notasTareas { get; set; }
         public string notasComprobaciones { get; set; }
@@ -34,6 +33,6 @@ namespace Notas.Models
         public Nullable<int> notaVideo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LlevaModel> Llevas { get; set; }
+        public virtual ICollection<TieneModel> Tienes { get; set; }
     }
 }

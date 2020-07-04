@@ -4,13 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NotasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Curso">
+    <Schema Namespace="NotasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estudiante">
           <Key>
-            <PropertyRef Name="siglas" />
+            <PropertyRef Name="carne" />
           </Key>
-          <Property Name="siglas" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="carne" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido2" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Evaluacion">
+          <Key>
+            <PropertyRef Name="evaluacionId" />
+          </Key>
+          <Property Name="evaluacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="notaCCQT" Type="int" />
           <Property Name="notasTareas" Type="nvarchar" MaxLength="250" />
           <Property Name="notasComprobaciones" Type="nvarchar" MaxLength="250" />
@@ -22,72 +30,84 @@
           <Property Name="notaEjecucionReporte" Type="int" />
           <Property Name="notaVideo" Type="int" />
         </EntityType>
-        <EntityType Name="Estudiante">
-          <Key>
-            <PropertyRef Name="carne" />
-          </Key>
-          <Property Name="carne" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="apellido2" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Lleva">
+        <EntityType Name="Tiene">
           <Key>
             <PropertyRef Name="carneEstudianteFK" />
-            <PropertyRef Name="siglasCursoFK" />
+            <PropertyRef Name="evaluacionIdFK" />
           </Key>
           <Property Name="carneEstudianteFK" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="siglasCursoFK" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="evaluacionIdFK" Type="int" Nullable="false" />
           <Property Name="notaCurso" Type="int" />
         </EntityType>
-        <Association Name="FK_Lleva_Curso">
-          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
-          <End Role="Lleva" Type="Self.Lleva" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Curso">
-              <PropertyRef Name="siglas" />
-            </Principal>
-            <Dependent Role="Lleva">
-              <PropertyRef Name="siglasCursoFK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lleva_Estudiante">
+        <Association Name="FK_Tiene_Estudiante">
           <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
-          <End Role="Lleva" Type="Self.Lleva" Multiplicity="*" />
+          <End Role="Tiene" Type="Self.Tiene" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estudiante">
               <PropertyRef Name="carne" />
             </Principal>
-            <Dependent Role="Lleva">
+            <Dependent Role="Tiene">
               <PropertyRef Name="carneEstudianteFK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tiene_Evaluacion">
+          <End Role="Evaluacion" Type="Self.Evaluacion" Multiplicity="1" />
+          <End Role="Tiene" Type="Self.Tiene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evaluacion">
+              <PropertyRef Name="evaluacionId" />
+            </Principal>
+            <Dependent Role="Tiene">
+              <PropertyRef Name="evaluacionIdFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="NotasDBModelStoreContainer">
-          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Lleva" EntityType="Self.Lleva" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Lleva_Curso" Association="Self.FK_Lleva_Curso">
-            <End Role="Curso" EntitySet="Curso" />
-            <End Role="Lleva" EntitySet="Lleva" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lleva_Estudiante" Association="Self.FK_Lleva_Estudiante">
+          <EntitySet Name="Evaluacion" EntityType="Self.Evaluacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tiene" EntityType="Self.Tiene" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tiene_Estudiante" Association="Self.FK_Tiene_Estudiante">
             <End Role="Estudiante" EntitySet="Estudiante" />
-            <End Role="Lleva" EntitySet="Lleva" />
+            <End Role="Tiene" EntitySet="Tiene" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiene_Evaluacion" Association="Self.FK_Tiene_Evaluacion">
+            <End Role="Evaluacion" EntitySet="Evaluacion" />
+            <End Role="Tiene" EntitySet="Tiene" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="NotasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CursoModel">
+        <EntityType Name="EstudianteModel">
           <Key>
-            <PropertyRef Name="siglas" />
+            <PropertyRef Name="carne" />
           </Key>
-          <Property Name="siglas" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="carne" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="apellido2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tienes" Relationship="NotasDBModel.FK_Tiene_Estudiante" FromRole="EstudianteModel" ToRole="Tiene" />
+        </EntityType>
+        <EntityContainer Name="NotasDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EstudianteModels" EntityType="NotasDBModel.EstudianteModel" />
+          <EntitySet Name="EvaluacionModels" EntityType="NotasDBModel.EvaluacionModel" />
+          <EntitySet Name="TieneModels" EntityType="NotasDBModel.TieneModel" />
+          <AssociationSet Name="FK_Tiene_Estudiante" Association="NotasDBModel.FK_Tiene_Estudiante">
+            <End Role="EstudianteModel" EntitySet="EstudianteModels" />
+            <End Role="Tiene" EntitySet="TieneModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tiene_Evaluacion" Association="NotasDBModel.FK_Tiene_Evaluacion">
+            <End Role="Evaluacion" EntitySet="EvaluacionModels" />
+            <End Role="Tiene" EntitySet="TieneModels" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EvaluacionModel">
+          <Key>
+            <PropertyRef Name="evaluacionId" />
+          </Key>
+          <Property Name="evaluacionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="notaCCQT" Type="Int32" />
           <Property Name="notasTareas" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="notasComprobaciones" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -98,90 +118,49 @@
           <Property Name="notaPlanificacion" Type="Int32" />
           <Property Name="notaEjecucionReporte" Type="Int32" />
           <Property Name="notaVideo" Type="Int32" />
-          <NavigationProperty Name="Llevas" Relationship="Self.FK_Lleva_Curso" FromRole="Curso" ToRole="Lleva" />
+          <NavigationProperty Name="Tienes" Relationship="NotasDBModel.FK_Tiene_Evaluacion" FromRole="Evaluacion" ToRole="Tiene" />
         </EntityType>
-        <EntityType Name="EstudianteModel">
-          <Key>
-            <PropertyRef Name="carne" />
-          </Key>
-          <Property Name="carne" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="apellido2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Llevas" Relationship="Self.FK_Lleva_Estudiante" FromRole="Estudiante" ToRole="Lleva" />
-        </EntityType>
-        <EntityType Name="LlevaModel">
+        <EntityType Name="TieneModel">
           <Key>
             <PropertyRef Name="carneEstudianteFK" />
-            <PropertyRef Name="siglasCursoFK" />
+            <PropertyRef Name="evaluacionIdFK" />
           </Key>
-          <Property Name="carneEstudianteFK" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="siglasCursoFK" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="carneEstudianteFK" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="evaluacionIdFK" Type="Int32" Nullable="false" />
           <Property Name="notaCurso" Type="Int32" />
-          <NavigationProperty Name="Curso" Relationship="Self.FK_Lleva_Curso" FromRole="Lleva" ToRole="Curso" />
-          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Lleva_Estudiante" FromRole="Lleva" ToRole="Estudiante" />
+          <NavigationProperty Name="Estudiante" Relationship="NotasDBModel.FK_Tiene_Estudiante" FromRole="Tiene" ToRole="EstudianteModel" />
+          <NavigationProperty Name="Evaluacion" Relationship="NotasDBModel.FK_Tiene_Evaluacion" FromRole="Tiene" ToRole="Evaluacion" />
         </EntityType>
-        <Association Name="FK_Lleva_Curso">
-          <End Role="Curso" Type="NotasDBModel.CursoModel" Multiplicity="1" />
-          <End Role="Lleva" Type="NotasDBModel.LlevaModel" Multiplicity="*" />
+        <Association Name="FK_Tiene_Estudiante">
+          <End Type="NotasDBModel.EstudianteModel" Role="EstudianteModel" Multiplicity="1" />
+          <End Type="NotasDBModel.TieneModel" Role="Tiene" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Curso">
-              <PropertyRef Name="siglas" />
-            </Principal>
-            <Dependent Role="Lleva">
-              <PropertyRef Name="siglasCursoFK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Lleva_Estudiante">
-          <End Role="Estudiante" Type="NotasDBModel.EstudianteModel" Multiplicity="1" />
-          <End Role="Lleva" Type="NotasDBModel.LlevaModel" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estudiante">
+            <Principal Role="EstudianteModel">
               <PropertyRef Name="carne" />
             </Principal>
-            <Dependent Role="Lleva">
+            <Dependent Role="Tiene">
               <PropertyRef Name="carneEstudianteFK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="NotasDBEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CursoModels" EntityType="NotasDBModel.CursoModel" />
-          <EntitySet Name="EstudianteModels" EntityType="NotasDBModel.EstudianteModel" />
-          <EntitySet Name="LlevaModels" EntityType="NotasDBModel.LlevaModel" />
-          <AssociationSet Name="FK_Lleva_Curso" Association="Self.FK_Lleva_Curso">
-            <End Role="Curso" EntitySet="CursoModels" />
-            <End Role="Lleva" EntitySet="LlevaModels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Lleva_Estudiante" Association="Self.FK_Lleva_Estudiante">
-            <End Role="Estudiante" EntitySet="EstudianteModels" />
-            <End Role="Lleva" EntitySet="LlevaModels" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK_Tiene_Evaluacion">
+          <End Type="NotasDBModel.EvaluacionModel" Role="Evaluacion" Multiplicity="1" />
+          <End Type="NotasDBModel.TieneModel" Role="Tiene" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evaluacion">
+              <PropertyRef Name="evaluacionId" />
+            </Principal>
+            <Dependent Role="Tiene">
+              <PropertyRef Name="evaluacionIdFK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="NotasDBModelStoreContainer" CdmEntityContainer="NotasDBEntities1">
-          <EntitySetMapping Name="CursoModels">
-            <EntityTypeMapping TypeName="NotasDBModel.CursoModel">
-              <MappingFragment StoreEntitySet="Curso">
-                <ScalarProperty Name="siglas" ColumnName="siglas" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="notaCCQT" ColumnName="notaCCQT" />
-                <ScalarProperty Name="notasTareas" ColumnName="notasTareas" />
-                <ScalarProperty Name="notasComprobaciones" ColumnName="notasComprobaciones" />
-                <ScalarProperty Name="notasExamenesCortos" ColumnName="notasExamenesCortos" />
-                <ScalarProperty Name="notasClases" ColumnName="notasClases" />
-                <ScalarProperty Name="participacionForos" ColumnName="participacionForos" />
-                <ScalarProperty Name="notainvestigacion" ColumnName="notainvestigacion" />
-                <ScalarProperty Name="notaPlanificacion" ColumnName="notaPlanificacion" />
-                <ScalarProperty Name="notaEjecucionReporte" ColumnName="notaEjecucionReporte" />
-                <ScalarProperty Name="notaVideo" ColumnName="notaVideo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="EstudianteModels">
             <EntityTypeMapping TypeName="NotasDBModel.EstudianteModel">
               <MappingFragment StoreEntitySet="Estudiante">
@@ -192,12 +171,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LlevaModels">
-            <EntityTypeMapping TypeName="NotasDBModel.LlevaModel">
-              <MappingFragment StoreEntitySet="Lleva">
-                <ScalarProperty Name="carneEstudianteFK" ColumnName="carneEstudianteFK" />
-                <ScalarProperty Name="siglasCursoFK" ColumnName="siglasCursoFK" />
+          <EntitySetMapping Name="EvaluacionModels">
+            <EntityTypeMapping TypeName="NotasDBModel.EvaluacionModel">
+              <MappingFragment StoreEntitySet="Evaluacion">
+                <ScalarProperty Name="notaVideo" ColumnName="notaVideo" />
+                <ScalarProperty Name="notaEjecucionReporte" ColumnName="notaEjecucionReporte" />
+                <ScalarProperty Name="notaPlanificacion" ColumnName="notaPlanificacion" />
+                <ScalarProperty Name="notainvestigacion" ColumnName="notainvestigacion" />
+                <ScalarProperty Name="participacionForos" ColumnName="participacionForos" />
+                <ScalarProperty Name="notasClases" ColumnName="notasClases" />
+                <ScalarProperty Name="notasExamenesCortos" ColumnName="notasExamenesCortos" />
+                <ScalarProperty Name="notasComprobaciones" ColumnName="notasComprobaciones" />
+                <ScalarProperty Name="notasTareas" ColumnName="notasTareas" />
+                <ScalarProperty Name="notaCCQT" ColumnName="notaCCQT" />
+                <ScalarProperty Name="evaluacionId" ColumnName="evaluacionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TieneModels">
+            <EntityTypeMapping TypeName="NotasDBModel.TieneModel">
+              <MappingFragment StoreEntitySet="Tiene">
                 <ScalarProperty Name="notaCurso" ColumnName="notaCurso" />
+                <ScalarProperty Name="evaluacionIdFK" ColumnName="evaluacionIdFK" />
+                <ScalarProperty Name="carneEstudianteFK" ColumnName="carneEstudianteFK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
