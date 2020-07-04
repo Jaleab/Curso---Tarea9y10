@@ -26,7 +26,8 @@ namespace Notas.Services
             string consulta =
                 "SELECT Eva.evaluacionId, Eva.notasTareas, Eva.notasComprobaciones, Eva.notasExamenesCortos, Eva.notasClases, ISNULL(Eva.participacionForos, 0) AS [Participacion foros], " +
                 "ISNULL(Eva.notainvestigacion, 0) AS [Investigacion], ISNULL(Eva.notaPlanificacion, 0) AS [Planificacion], ISNULL(Eva.notaEjecucionReporte, 0) AS [Ejecucion reporte], "+
-                "ISNULL(Eva.notaVideo, 0) AS [Video], ISNULL(T.notaCurso, 0) AS [Nota curso], ISNULL(Eva.notaCCQT, 0) AS [ClaComQuiTar] " +
+                "ISNULL(Eva.notaVideo, 0) AS [Video], ISNULL(T.notaCurso, 0) AS [Nota curso], ISNULL(Eva.notaCCQT, 0) AS [ClaComQuiTar], " +
+                "ISNULL(Eva.notaPresentacion, '') AS [Presentacion], ISNULL(Eva.notasExamenes, '0') AS [Examenes], ISNULL(Eva.notasLaboratorios, '0') AS [Laboratorios] " +
                 "FROM Evaluacion Eva "+
                 "JOIN Tiene T "+
                 "ON Eva.evaluacionId = T.evaluacionIdFK "+
@@ -50,10 +51,13 @@ namespace Notas.Services
                 evaluacion.notaCCQT = Convert.ToInt32(dr["ClaComQuiTar"]);
                 evaluacion.notasTareas = Convert.ToString(dr["notasTareas"]);
                 evaluacion.notasComprobaciones = Convert.ToString(dr["notasComprobaciones"]);
+                evaluacion.notasLaboratorios = Convert.ToString(dr["Laboratorios"]);
                 evaluacion.notasExamenesCortos = Convert.ToString(dr["notasExamenesCortos"]);
+                evaluacion.notasExamenes = Convert.ToString(dr["Examenes"]);
                 evaluacion.notasClases = Convert.ToString(dr["notasClases"]);
                 evaluacion.participacionForos = Convert.ToInt32(dr["Participacion foros"]);
-                evaluacion.notainvestigacion = Convert.ToInt32(dr["Investigacion"]);
+                evaluacion.notaInvestigacion = Convert.ToInt32(dr["Investigacion"]);
+                evaluacion.notaPresentacion = Convert.ToInt32(dr["Presentacion"]);
                 evaluacion.notaPlanificacion = Convert.ToInt32(dr["Planificacion"]);
                 evaluacion.notaEjecucionReporte= Convert.ToInt32(dr["Ejecucion reporte"]);
                 evaluacion.notaVideo= Convert.ToInt32(dr["Video"]);

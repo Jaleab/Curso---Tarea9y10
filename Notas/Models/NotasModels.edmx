@@ -20,13 +20,16 @@
           </Key>
           <Property Name="evaluacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="notaCCQT" Type="int" />
+          <Property Name="notasLaboratorios" Type="nvarchar" MaxLength="250" />
+          <Property Name="notasExamenes" Type="nvarchar" MaxLength="250" />
           <Property Name="notasTareas" Type="nvarchar" MaxLength="250" />
           <Property Name="notasComprobaciones" Type="nvarchar" MaxLength="250" />
           <Property Name="notasExamenesCortos" Type="nvarchar" MaxLength="250" />
           <Property Name="notasClases" Type="nvarchar" MaxLength="250" />
           <Property Name="participacionForos" Type="int" />
-          <Property Name="notainvestigacion" Type="int" />
+          <Property Name="notaInvestigacion" Type="int" />
           <Property Name="notaPlanificacion" Type="int" />
+          <Property Name="notaPresentacion" Type="int" />
           <Property Name="notaEjecucionReporte" Type="int" />
           <Property Name="notaVideo" Type="int" />
         </EntityType>
@@ -119,6 +122,10 @@
           <Property Name="notaEjecucionReporte" Type="Int32" />
           <Property Name="notaVideo" Type="Int32" />
           <NavigationProperty Name="Tienes" Relationship="NotasDBModel.FK_Tiene_Evaluacion" FromRole="Evaluacion" ToRole="Tiene" />
+          <Property Name="notasLaboratorios" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="notaInvestigacion" Type="Int32" />
+          <Property Name="notaPresentacion" Type="Int32" />
+          <Property Name="notasExamenes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TieneModel">
           <Key>
@@ -174,10 +181,13 @@
           <EntitySetMapping Name="EvaluacionModels">
             <EntityTypeMapping TypeName="NotasDBModel.EvaluacionModel">
               <MappingFragment StoreEntitySet="Evaluacion">
+                <ScalarProperty Name="notasExamenes" ColumnName="notasExamenes" />
+                <ScalarProperty Name="notaPresentacion" ColumnName="notaPresentacion" />
+                <ScalarProperty Name="notaInvestigacion" ColumnName="notaInvestigacion" />
+                <ScalarProperty Name="notasLaboratorios" ColumnName="notasLaboratorios" />
                 <ScalarProperty Name="notaVideo" ColumnName="notaVideo" />
                 <ScalarProperty Name="notaEjecucionReporte" ColumnName="notaEjecucionReporte" />
                 <ScalarProperty Name="notaPlanificacion" ColumnName="notaPlanificacion" />
-                <ScalarProperty Name="notainvestigacion" ColumnName="notainvestigacion" />
                 <ScalarProperty Name="participacionForos" ColumnName="participacionForos" />
                 <ScalarProperty Name="notasClases" ColumnName="notasClases" />
                 <ScalarProperty Name="notasExamenesCortos" ColumnName="notasExamenesCortos" />
