@@ -212,6 +212,7 @@
     <Compile Include="Models\EvaluacionModel.cs">
       <DependentUpon>NotasModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FormularioModel.cs" />
     <Compile Include="Models\NotasModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
