@@ -1,0 +1,135 @@
+﻿@model Notas.Models.EvaluacionModel
+
+@{
+    ViewBag.Title = "VerEvaluacion";
+}
+
+<h2>VerEvaluacion</h2>
+
+
+
+<div>
+    <h4>EvaluacionModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.notaCCQT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notaCCQT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notasTareas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notasTareas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notasComprobaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notasComprobaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notasExamenesCortos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notasExamenesCortos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notasClases)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notasClases)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.participacionForos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.participacionForos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notainvestigacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notainvestigacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notaPlanificacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notaPlanificacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notaEjecucionReporte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notaEjecucionReporte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.notaVideo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.notaVideo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.evaluacionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<body>
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Hello World</h1>
+            <button id="btnAddField">Add Field</button>
+
+            @using (Html.BeginForm("AgregarNota", "Evaluacion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div id="fields"></div>
+
+                <button>Submit</button>
+            }
+
+
+            <div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
+            <!-- JS includes -->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    var $fields = $('#fields');
+                    $('#btnAddField').click(function (e) {
+                        e.preventDefault();
+                        $('<input type="text" name="dynamicField" /><br/>').appendTo($fields);
+                    });
+                });
+
+            </script>
+        </div>
+    </div>
+</body>

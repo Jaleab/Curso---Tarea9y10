@@ -24,10 +24,17 @@ namespace Notas.Controllers
             return RedirectToAction("VerEstudiantes", "Estudiante");
         }
 
-        public ActionResult Details(string carne)
+        public ActionResult VerEvaluacion(string carne)
         {
             EvaluacionService evaluacionService= new EvaluacionService();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
+        }
+
+        [HttpPost]
+        public ActionResult AgregarNota(string[] dynamicField)
+        {
+            ViewBag.Data = string.Join(",", dynamicField ?? new string[] { });
+            return View();
         }
     }
 }

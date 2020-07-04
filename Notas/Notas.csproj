@@ -399,10 +399,10 @@
     <Content Include="Views\Shared\_LayoutTopNav.cshtml" />
     <Content Include="Views\Estudiante\CrearEstudiante.cshtml" />
     <Content Include="Views\Curso.cshtml" />
+    <Content Include="Views\Evaluacion\VerEvaluacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Curso\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
