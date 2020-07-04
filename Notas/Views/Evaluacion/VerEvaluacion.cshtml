@@ -4,96 +4,70 @@
     ViewBag.Title = "VerEvaluacion";
 }
 
-<h2>VerEvaluacion</h2>
+<h2>Estudiante con carné @ViewBag.carne</h2>
+<h4>Evaluaciones</h4>
+<hr />
 
 
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerEstudiantes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+</head>
+<div class="table-responsive-sm">
+    <table class="table table-hover table-bordered table-striped table-sm">
+        <tr class="bg-primary">
+            <th style="color: white;">
+                Rubro
+            </th>
+            <th style="color: white;">
+                Notas
+            </th>
+            <th>
 
-<div>
-    <h4>EvaluacionModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.notaCCQT)
-        </dt>
+            </th>
+        </tr>
+        <tr class="" style="text-align: left;">
+            <td>
+                @Html.DisplayNameFor(model => model.notaCCQT)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.notaCCQT)
+            </td>
+            <td>
+                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.notaCCQT)
-        </dd>
+        <tr class="" style="text-align: left;">
+            <td>
+                @Html.DisplayNameFor(model => model.participacionForos)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.participacionForos)
+            </td>
+            <td>
+                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.notasTareas)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notasTareas)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notasComprobaciones)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notasComprobaciones)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notasExamenesCortos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notasExamenesCortos)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notasClases)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notasClases)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.participacionForos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.participacionForos)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notainvestigacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notainvestigacion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notaPlanificacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notaPlanificacion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notaEjecucionReporte)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notaEjecucionReporte)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.notaVideo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.notaVideo)
-        </dd>
-
-    </dl>
+        <tr class="" style="text-align: left;">
+            <td>
+                @Html.DisplayNameFor(model => model.notainvestigacion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.notainvestigacion)
+            </td>
+            <td>
+                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+            </td>
+        </tr>
+    </table>
 </div>
+<p>
+    <a href="@Url.Action("CrearEstudiante", "Estudiante")" class="btn btn-primary" role="button">Agregar estudiante</a>
+</p>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.evaluacionId }) |
     @Html.ActionLink("Back to List", "Index")
@@ -138,8 +112,6 @@
 
 
 <div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
-<!-- JS includes -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 <script type="text/javascript">
 

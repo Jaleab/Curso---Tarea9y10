@@ -27,6 +27,7 @@ namespace Notas.Controllers
         public ActionResult VerEvaluacion(string carne)
         {
             EvaluacionService evaluacionService= new EvaluacionService();
+            ViewBag.carne = carne;
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
@@ -34,7 +35,7 @@ namespace Notas.Controllers
         public ActionResult VerEvaluacion(string[] dynamicField)
         {
             ViewBag.Data = string.Join(",", dynamicField ?? new string[] { });
-            return View()
+            return View();
         }
     }
 }

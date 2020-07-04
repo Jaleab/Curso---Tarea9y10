@@ -23,7 +23,7 @@ namespace Notas.Models
     
         public int evaluacionId { get; set; }
 
-        [DisplayName("Nota clases, comprobaciones, examenes cortos y tareas")]
+        [DisplayName("Clases, comprobaciones, examenes cortos y tareas")]
         public Nullable<int> notaCCQT { get; set; }
 
         [DisplayName("Tareas del curso")]
@@ -38,7 +38,7 @@ namespace Notas.Models
         [DisplayName("Clases virtual del curso")]
         public string notasClases { get; set; }
 
-        [DisplayName("Particion en el foro del curso")]
+        [DisplayName("Partipacion en el foro del curso")]
         public Nullable<int> participacionForos { get; set; }
 
         [DisplayName("Investigacion del curso")]
