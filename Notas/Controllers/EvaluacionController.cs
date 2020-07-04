@@ -31,10 +31,10 @@ namespace Notas.Controllers
         }
 
         [HttpPost]
-        public ActionResult AgregarNota(string[] dynamicField)
+        public ActionResult VerEvaluacion(string[] dynamicField)
         {
             ViewBag.Data = string.Join(",", dynamicField ?? new string[] { });
-            return View();
+            return View()
         }
     }
 }

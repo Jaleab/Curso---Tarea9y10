@@ -99,37 +99,58 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-<body>
-    <div class="container">
-        <div class="col-md-6 col-md-offset-3">
-            <h1>Hello World</h1>
-            <button id="btnAddField">Add Field</button>
+<div class="shadow" style="padding: 25px; border-radius: 25px; background-color:white;">
+    <button id="btnAddField">Add Field</button>
+    <div class="row" style="margin-left: 0px;margin-right: 0px;">
+        @using (Html.BeginForm("Editar", "Articulo", new { }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-            @using (Html.BeginForm("AgregarNota", "Evaluacion", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" id="fields">
+                        @Html.LabelFor(model => model.evaluacionId)
+                        @Html.TextBoxFor(model => model.evaluacionId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.evaluacionId, "", new { @class = "text-danger" })
+                    </div>
 
-                <div id="fields"></div>
+                    <input type="submit" value="Editar" class="btn btn-success" />
+                    @Html.ActionLink("Cancelar", "InicioArticulos", "Articulo", routeValues: null, htmlAttributes: new { title = "Cancelar", @class = "btn btn-danger" })
+                </div>
+            </div>
 
-                <button>Submit</button>
-            }
+            <br />
 
-
-            <div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
-            <!-- JS includes -->
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-            <script type="text/javascript">
-
-                $(document).ready(function () {
-                    var $fields = $('#fields');
-                    $('#btnAddField').click(function (e) {
-                        e.preventDefault();
-                        $('<input type="text" name="dynamicField" /><br/>').appendTo($fields);
-                    });
-                });
-
-            </script>
-        </div>
+        }
     </div>
-</body>
+</div>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="fields"></div>
+
+    <button>Submit</button>
+}
+
+
+<div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
+<!-- JS includes -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var $fields = $('#fields');
+        $('#btnAddField').click(function (e) {
+            e.preventDefault();
+            $('<input class="form-control" name="dynamicField type="text" /><br/>').appendTo($fields);
+        });
+    });
+
+</script>
+
+<input class="form-control" data-val="true" data-val-number="The field evaluacionId must be a number." data-val-required="The evaluacionId field is required." id="evaluacionId" name="evaluacionId" type="text" value="2">
