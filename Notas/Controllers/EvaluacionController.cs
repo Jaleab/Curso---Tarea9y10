@@ -11,6 +11,7 @@ namespace Notas.Controllers
     public class EvaluacionController : Controller
     {
         EvaluacionService evaluacionService = new EvaluacionService();
+        EvaluacionModel evaluacion = new EvaluacionModel();
 
         public ActionResult VerEvaluacion(string carne)
         {
@@ -25,7 +26,6 @@ namespace Notas.Controllers
         public ActionResult EditarInvestigacion(string carne)
         {
             ViewBag.carne = carne;
-            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
@@ -40,7 +40,6 @@ namespace Notas.Controllers
         public ActionResult EditarParticipacion(string carne)
         {
             ViewBag.carne = carne;
-            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
@@ -55,7 +54,6 @@ namespace Notas.Controllers
         public ActionResult EditarExamenes(string carne)
         {
             ViewBag.carne = carne;
-            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
@@ -70,7 +68,6 @@ namespace Notas.Controllers
         public ActionResult EditarLaboratorios(string carne)
         {
             ViewBag.carne = carne;
-            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
@@ -85,7 +82,6 @@ namespace Notas.Controllers
         public ActionResult EditarCCQT(string carne)
         {
             ViewBag.carne = carne;
-            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 

@@ -6,10 +6,9 @@ namespace Notas.Controllers
 {
     public class EstudianteController : Controller
     {
-
+        EstudianteService estudianteService = new EstudianteService();
         public ActionResult VerEstudiantes()
         {
-            EstudianteService estudianteService = new EstudianteService();
             if (TempData["mensaje"] != null)
             {
                 ViewBag.mensaje = TempData["mensaje"];
@@ -18,15 +17,13 @@ namespace Notas.Controllers
         }
 
         public ActionResult CrearEstudiante()
-        {
-            EstudianteService estudianteService = new EstudianteService();         
+        {       
             return View();
         }
         
         [HttpPost]
         public ActionResult Create(EstudianteModel estudiante)
-        {
-            EstudianteService estudianteService = new EstudianteService();
+        {           
             estudianteService.AgregarEstudiante(estudiante);
 
             EvaluacionService evaluacionService = new EvaluacionService();

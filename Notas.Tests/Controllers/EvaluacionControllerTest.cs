@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Notas.Controllers;
 using Notas.Models;
@@ -31,7 +29,7 @@ namespace Notas.Tests.Controllers
         }
 
         [TestMethod]
-        public void CalificarInvestigacionNotNull()
+        public void CalificarInvestigacionRedirected()
         {
             EvaluacionController controller = new EvaluacionController();
 
@@ -54,7 +52,7 @@ namespace Notas.Tests.Controllers
         }
 
         [TestMethod]
-        public void CalificarParticipacion()
+        public void CalificarParticipacionRedirected()
         {
             EvaluacionController controller = new EvaluacionController();
 
@@ -77,7 +75,7 @@ namespace Notas.Tests.Controllers
         }
 
         [TestMethod]
-        public void CalificarExamenes()
+        public void CalificarExamenesRedirected()
         {
             string[] notasVacias = {};
             EvaluacionController controller = new EvaluacionController();
@@ -100,7 +98,7 @@ namespace Notas.Tests.Controllers
         }
 
         [TestMethod]
-        public void CalificarLaboratorios()
+        public void CalificarLaboratoriosRedirected()
         {
             string[] notasVacias = { };
             EvaluacionController controller = new EvaluacionController();
@@ -124,7 +122,7 @@ namespace Notas.Tests.Controllers
         }
 
         [TestMethod]
-        public void CalificarCCQT()
+        public void CalificarCCQTRedirected()
         {
             string[] notasVacias = { };
             EvaluacionController controller = new EvaluacionController();

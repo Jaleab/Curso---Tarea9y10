@@ -31,9 +31,7 @@ namespace Notas.Services
             cmd.Connection = con;
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
 
             List<EstudianteModel> listaEstudiantes = new List<EstudianteModel>();
 
@@ -55,36 +53,50 @@ namespace Notas.Services
         public void AgregarEstudiante(EstudianteModel estudiante)
         {
             connection();
-
-            char[] separadores = { ' ', ',' };
-            Int32 n = 3;
-            string[] infoEstudiante = estudiante.nombreCompleto.Split(separadores, n);
             string consulta =
                "INSERT INTO Estudiante(carne, nombre, apellido, apellido2) " +
                "VALUES(@carne, @nombre, @apellido, @apellido2) ";
 
-            SqlCommand cmd = new SqlCommand(consulta, con);
+            cmd.CommandText = consulta;
+            cmd.Connection = con;
+            sd.SelectCommand = cmd;
+
             cmd.Parameters.AddWithValue("@carne", estudiante.carne);
-            cmd.Parameters.AddWithValue("@nombre", infoEstudiante[0]);
-            if (infoEstudiante.Length > 2)
-            {
-                cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
-                cmd.Parameters.AddWithValue("@apellido2", infoEstudiante[2]);
-            }
-            else
-            {
-                if (infoEstudiante.Length == 2)
+
+            char[] separadores = { ' ', ',' };
+            int n = 3;
+            string[] infoEstudiante = estudiante.nombreCompleto.Split(separadores, n);
+            if (infoEstudiante != null && infoEstudiante.Length > 0) {
+                cmd.Parameters.AddWithValue("@nombre", infoEstudiante[0]);
+                if (infoEstudiante.Length > 2)
                 {
                     cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
-                    cmd.Parameters.AddWithValue("@apellido2", " ");
-                }                    
+                    cmd.Parameters.AddWithValue("@apellido2", infoEstudiante[2]);
+                }
+                else
+                {
+                    if (infoEstudiante.Length == 2)
+                    {
+                        cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
+                        cmd.Parameters.AddWithValue("@apellido2", " ");
+                    }
+                }
             }
 
-            SqlDataAdapter sd = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
+            SetDataTable();
+        }
 
+        private void SetDataTable()
+        {
             con.Open();
-            sd.Fill(dt);
+            try
+            {
+                sd.Fill(dt);
+            }
+            catch (Exception e)
+            {
+
+            }
             con.Close();
         }
     }
