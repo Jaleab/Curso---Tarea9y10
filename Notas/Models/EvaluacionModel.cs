@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class EvaluacionModel
     {
@@ -30,22 +31,27 @@
         [DisplayName("Clases virtuales del curso")]
         public string notasClases { get; set; }
 
-        [DisplayName("Participacion en el foro del curso (20%)")]
+        [Required(ErrorMessage = "*La nota de la participacion  en el foro requerida.")]
+        [DisplayName("Participación en el foro del curso (20%)")]
         public Nullable<int> participacionForos { get; set; }
 
-        [DisplayName("Investigacion del curso  (20%)")]
+        [DisplayName("Investigación del curso (20%)")]
         public Nullable<int> notaInvestigacion { get; set; }
 
-        [DisplayName("Planificacion de la investigacion (20%)")]
+        [Required(ErrorMessage = "*La nota de la planificación es requerida.")]
+        [DisplayName("Planificación de la investigación (20%)")]
         public Nullable<int> notaPlanificacion { get; set; }
 
-        [DisplayName("Ejecucion y reporte de la investigacion (30%)")]
+        [Required(ErrorMessage = "*La nota de la ejecución y reporte es requerida.")]
+        [DisplayName("Ejecución y reporte de la investigación (30%)")]
         public Nullable<int> notaEjecucionReporte { get; set; }
 
-        [DisplayName("Video de la investigacion (30%)")]
+        [Required(ErrorMessage = "*La nota del video es requerida.")]
+        [DisplayName("Video de la investigación (30%)")]
         public Nullable<int> notaVideo { get; set; }
 
-        [DisplayName("Presentacion de la investigacion (20%)")]
+        [Required(ErrorMessage = "*La nota de la presentaciones requerida.")]
+        [DisplayName("Presentación de la investigación (20%)")]
         public Nullable<int> notaPresentacion { get; set; }
 
         [DisplayName("Examenes del curso  (20%)")]

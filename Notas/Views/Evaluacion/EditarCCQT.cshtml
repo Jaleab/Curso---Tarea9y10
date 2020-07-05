@@ -78,7 +78,7 @@
                 if (fieldsCount < maxFields) {
                     e.preventDefault();
                     $('<label for="notasExamenes">Comprobacion de lectura #' + (numComprobaciones) + '</label > ').appendTo($comprobaciones);
-                    $('<input class="form-control" name="notas" type="number" min="0" max="100"/><br />').appendTo($comprobaciones);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100" required value="0"/><br />').appendTo($comprobaciones);
                     numComprobaciones += 1;
                     fieldsCount += 1;
                 }
@@ -87,7 +87,7 @@
                 if (fieldsCount < maxFields) {
                     e.preventDefault();
                     $('<label for="notasExamenes">Examen corto #' + (numQuiz) + '</label > ').appendTo($quices);
-                    $('<input class="form-control" name="notas" type="number" min="0" max="100" /><br />').appendTo($quices);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100" required value="0"/><br />').appendTo($quices);
                     fieldsCount += 1;
                     numQuiz += 1;
                 }
@@ -96,7 +96,7 @@
                 if (fieldsCount < maxFields) {
                     e.preventDefault();
                     $('<label for="notasExamenes">Tarea #' + (numTareas) + '</label > ').appendTo($tareas);
-                    $('<input class="form-control" name="notas" type="number" min="0" max="100" /><br />').appendTo($tareas);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100" required value="0" /><br />').appendTo($tareas);
                     fieldsCount += 1;
                     numTareas += 1;
                 }
@@ -105,7 +105,7 @@
                 if (fieldsCount < maxFields) {
                     e.preventDefault();
                     $('<label for="notasExamenes">Clase #' + (numClases) + '</label > ').appendTo($clases);
-                    $('<input class="form-control" name="notas" type="number" min="0" max="100" /><br />').appendTo($clases);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100" required value="0" /><br />').appendTo($clases);
                     fieldsCount += 1;
                     numClases += 1;
                 }
