@@ -58,4 +58,9 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Estudiante.sql" />
+    <Build Include="Evaluacion.sql" />
+    <Build Include="Tiene.sql" />
+  </ItemGroup>
 </Project>
