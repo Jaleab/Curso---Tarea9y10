@@ -27,8 +27,10 @@ namespace Notas.Services
                 "SELECT Eva.evaluacionId, Eva.notasTareas, Eva.notasComprobaciones, Eva.notasExamenesCortos, Eva.notasClases, ISNULL(Eva.participacionForos, 0) AS [Participacion foros], " +
                 "ISNULL(Eva.notainvestigacion, 0) AS [Investigacion], ISNULL(Eva.notaPlanificacion, 0) AS [Planificacion], ISNULL(Eva.notaEjecucionReporte, 0) AS [Ejecucion reporte], "+
                 "ISNULL(Eva.notaVideo, 0) AS [Video], ISNULL(T.notaCurso, 0) AS [Nota curso], ISNULL(Eva.notaCCQT, 0) AS [ClaComQuiTar], " +
-                "ISNULL(Eva.notaPresentacion, '') AS [Presentacion], ISNULL(Eva.notasExamenes, '0') AS [Examenes], ISNULL(Eva.notasLaboratorios, '0') AS [Laboratorios] " +
-                "FROM Evaluacion Eva "+
+                "ISNULL(Eva.notaPresentacion, 0) AS [Presentacion], ISNULL(Eva.notasExamenes, ' ') AS [Examenes], ISNULL(Eva.notasLaboratorios, ' ') AS [Laboratorios], " +
+                "ISNULL(Eva.notaLabs, 0) AS [Nota Labs], ISNULL(Eva.notaParciales, 0) AS [Parciales] " +
+                
+                "FROM Evaluacion Eva " +
                 "JOIN Tiene T "+
                 "ON Eva.evaluacionId = T.evaluacionIdFK "+
                 "WHERE T.carneEstudianteFK = @carne ";
@@ -59,15 +61,10 @@ namespace Notas.Services
                 evaluacion.notaInvestigacion = Convert.ToInt32(dr["Investigacion"]);
                 evaluacion.notaPresentacion = Convert.ToInt32(dr["Presentacion"]);
                 evaluacion.notaPlanificacion = Convert.ToInt32(dr["Planificacion"]);
-                evaluacion.notaEjecucionReporte= Convert.ToInt32(dr["Ejecucion reporte"]);
-                evaluacion.notaVideo= Convert.ToInt32(dr["Video"]);
-
-                evaluacion.Tienes.Add(new TieneModel
-                {
-                    carneEstudianteFK = carne,
-                    evaluacionIdFK = evaluacion.evaluacionId,
-                    notaCurso = Convert.ToInt32(dr["Nota curso"]),
-            });
+                evaluacion.notaEjecucionReporte = Convert.ToInt32(dr["Ejecucion reporte"]);
+                evaluacion.notaVideo = Convert.ToInt32(dr["Video"]);
+                evaluacion.notaLabs = Convert.ToInt32(dr["Nota Labs"]);
+                evaluacion.notaParciales = Convert.ToInt32(dr["Parciales"]);
             }
             return evaluacion;
 
@@ -85,6 +82,31 @@ namespace Notas.Services
             cmd.CommandText = consulta;
             cmd.Connection = con;
             cmd.Parameters.AddWithValue("@carne", carne);
+
+            sd.SelectCommand = cmd;
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+        }
+
+        public void ModificarInvestigacion(EvaluacionModel evaluacion, string carne)
+        {
+            connection();
+            string consulta =
+               "UPDATE Evaluacion " +
+               "SET notaInvestigacion = (@notaPlanificacion*0.2+@notaEjecucionReporte*0.3+@notaPresentacion*0.2+@notaVideo*0.3)*0.2, " +
+               "notaPlanificacion = @notaPlanificacion, notaEjecucionReporte = @notaEjecucionReporte, notaPresentacion = @notaPresentacion, "+
+               "notaVideo = @notaVideo " +
+               "WHERE evaluacionId = (SELECT evaluacionIdFK FROM Tiene WHERE carneEstudianteFK = @carne) ";
+
+            cmd.CommandText = consulta;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@carne", carne);
+            cmd.Parameters.AddWithValue("@notaPlanificacion", evaluacion.notaPlanificacion);
+            cmd.Parameters.AddWithValue("@notaEjecucionReporte", evaluacion.notaEjecucionReporte);
+            cmd.Parameters.AddWithValue("@notaPresentacion", evaluacion.notaPresentacion);
+            cmd.Parameters.AddWithValue("@notaVideo", evaluacion.notaVideo);
 
             sd.SelectCommand = cmd;
 

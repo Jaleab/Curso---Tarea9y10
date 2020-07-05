@@ -10,6 +10,7 @@ namespace Notas.Controllers
 {
     public class EvaluacionController : Controller
     {
+        EvaluacionService evaluacionService = new EvaluacionService();
         // GET: Curso
         public ActionResult Index()
         {
@@ -18,7 +19,6 @@ namespace Notas.Controllers
 
         public ActionResult Create(EvaluacionModel evaluacion)
         {
-            EvaluacionService evaluacionService = new EvaluacionService();
             //cursoService.AgregarCurso(evaluacion);
             //TempData["mensaje"] = "El curso " + curso.nombre+ " ha sido agregado al curso.";
             return RedirectToAction("VerEstudiantes", "Estudiante");
@@ -26,16 +26,44 @@ namespace Notas.Controllers
 
         public ActionResult VerEvaluacion(string carne)
         {
-            EvaluacionService evaluacionService= new EvaluacionService();
+            ViewBag.carne = carne;
+            return View(evaluacionService.GetEvaluacionEstudiante(carne));
+        }
+
+        public ActionResult EditarInvestigacion(string carne)
+        {
             ViewBag.carne = carne;
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
         [HttpPost]
-        public ActionResult VerEvaluacion(string[] dynamicField)
+        public ActionResult CalificarInvestigacion(EvaluacionModel evaluacion, string carne)
+        {
+            evaluacionService.ModificarInvestigacion(evaluacion, carne);
+            TempData["mensaje"] = "La investigacion ha sido calificada.";
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne = carne});
+        }
+
+        public ActionResult EditarParticipacion(string carne)
+        {
+            ViewBag.carne = carne;
+            return View(evaluacionService.GetEvaluacionEstudiante(carne));
+        }
+
+        [HttpPost]
+        public ActionResult CalificarParticipacion(EvaluacionModel evaluacion, string carne)
+        {
+            evaluacionService.ModificarInvestigacion(evaluacion, carne);
+            TempData["mensaje"] = "La participacion en foros ha sido calificada.";
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne = carne });
+        }
+
+        [HttpPost]
+        public ActionResult CalificarAlgo(string[] dynamicField, string carne)
         {
             ViewBag.Data = string.Join(",", dynamicField ?? new string[] { });
-            return View();
+            TempData["mensaje"] = "La investigacion ha sido calificada.";
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne = carne });
         }
     }
 }

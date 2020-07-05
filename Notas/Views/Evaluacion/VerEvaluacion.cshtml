@@ -4,8 +4,7 @@
     ViewBag.Title = "VerEvaluacion";
 }
 
-<h2>Estudiante con carné @ViewBag.carne</h2>
-<h4>Evaluaciones</h4>
+<h2>Evaluaciones del estudiante con carné @ViewBag.carne</h2>
 <hr />
 
 
@@ -22,7 +21,7 @@
                 Rubro
             </th>
             <th style="color: white;">
-                Notas
+                Nota
             </th>
             <th>
 
@@ -36,31 +35,31 @@
                 @Html.DisplayFor(model => model.notaCCQT)
             </td>
             <td>
-                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+                <a href="@Url.Action("EditarCCQT", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
             </td>
         </tr>
 
         <tr class="" style="text-align: left;">
             <td>
-                @Html.DisplayNameFor(model => model.notasLaboratorios)
+                @Html.DisplayNameFor(model => model.notaLabs)
             </td>
             <td>
-                @Html.DisplayFor(model => model.notasLaboratorios)
+                @Html.DisplayFor(model => model.notaLabs)
             </td>
             <td>
-                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+                <a href="@Url.Action("EditarLaboratorios", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
             </td>
         </tr>
 
         <tr class="" style="text-align: left;">
             <td>
-                @Html.DisplayNameFor(model => model.notasExamenes)
+                @Html.DisplayNameFor(model => model.notaParciales)
             </td>
             <td>
-                @Html.DisplayFor(model => model.notasExamenes)
+                @Html.DisplayFor(model => model.notaParciales)
             </td>
             <td>
-                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+                <a href="@Url.Action("EditarParciales", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
             </td>
         </tr>
 
@@ -72,7 +71,7 @@
                 @Html.DisplayFor(model => model.participacionForos)
             </td>
             <td>
-                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+                <a href="@Url.Action("EditarParticipacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
             </td>
         </tr>
 
@@ -84,7 +83,7 @@
                 @Html.DisplayFor(model => model.notaInvestigacion)
             </td>
             <td>
-                <a href="@Url.Action("VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
+                <a href="@Url.Action("EditarInvestigacion", "Evaluacion", new { carne = ViewBag.carne })" class="btn btn-primary" role="button">Evaluaciones</a>
             </td>
         </tr>
     </table>
@@ -96,57 +95,3 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.evaluacionId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-<div class="shadow" style="padding: 25px; border-radius: 25px; background-color:white;">
-    <button id="btnAddField">Add Field</button>
-    <div class="row" style="margin-left: 0px;margin-right: 0px;">
-        @using (Html.BeginForm("Editar", "Articulo", new { }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group" id="fields">
-                        @Html.LabelFor(model => model.evaluacionId)
-                        @Html.TextBoxFor(model => model.evaluacionId, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.evaluacionId, "", new { @class = "text-danger" })
-                    </div>
-
-                    <input type="submit" value="Editar" class="btn btn-success" />
-                    @Html.ActionLink("Cancelar", "InicioArticulos", "Articulo", routeValues: null, htmlAttributes: new { title = "Cancelar", @class = "btn btn-danger" })
-                </div>
-            </div>
-
-            <br />
-
-        }
-    </div>
-</div>
-
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div id="fields"></div>
-
-    <button>Submit</button>
-}
-
-
-<div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        var $fields = $('#fields');
-        $('#btnAddField').click(function (e) {
-            e.preventDefault();
-            $('<input class="form-control" name="dynamicField type="text" /><br/>').appendTo($fields);
-        });
-    });
-
-</script>
-
-<input class="form-control" data-val="true" data-val-number="The field evaluacionId must be a number." data-val-required="The evaluacionId field is required." id="evaluacionId" name="evaluacionId" type="text" value="2">

@@ -24,6 +24,7 @@ namespace Notas.Controllers
             return View();
         }
         
+        [HttpPost]
         public ActionResult Create(EstudianteModel estudiante)
         {
             EstudianteService estudianteService = new EstudianteService();
