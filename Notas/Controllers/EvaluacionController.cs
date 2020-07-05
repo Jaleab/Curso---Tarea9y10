@@ -97,12 +97,13 @@ namespace Notas.Controllers
         [HttpPost]
         public ActionResult CalificarCCQT(string[] notas, string carne)
         {
-            bool valido = false;
+            bool valido = true;
             int i = 0;
-            while (valido == false) {
-                if (notas[i] != "") {
-                    i += 1;
+            while (valido == true && i < notas.Length) {
+                if (notas[i] == "") {
+                    valido = false;
                 }
+                i += 1;
             }
             if(valido == true)
             {

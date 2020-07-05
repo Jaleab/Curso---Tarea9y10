@@ -114,11 +114,8 @@
 
 </script>
 
-@*<div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
-    <input class="form-control" data-val="true" data-val-number="The field evaluacionId must be a number." data-val-required="The evaluacionId field is required." id="evaluacionId" name="evaluacionId" type="text" value="2">*@
-
 <div>
-    @Html.ActionLink("Regresar", "Index")
+    @Html.ActionLink("Regresar", "VerEvaluacion", "Evaluacion", new { carne = ViewBag.carne})
 </div>
 
 @section Scripts {
