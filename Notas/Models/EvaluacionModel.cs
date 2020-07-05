@@ -8,6 +8,7 @@
     {
         public int evaluacionId { get; set; }
 
+
         [DisplayName("Clases, comprobaciones, examenes cortos y tareas (20%)")]
         public Nullable<int> notaCCQT { get; set; }
 
@@ -26,25 +27,25 @@
         [DisplayName("Laboratorios del curso")]
         public string notasLaboratorios { get; set; }
 
-        [DisplayName("Clases virtual del curso")]
+        [DisplayName("Clases virtuales del curso")]
         public string notasClases { get; set; }
 
-        [DisplayName("Participacion en el foro del curso")]
+        [DisplayName("Participacion en el foro del curso (20%)")]
         public Nullable<int> participacionForos { get; set; }
 
         [DisplayName("Investigacion del curso  (20%)")]
         public Nullable<int> notaInvestigacion { get; set; }
 
-        [DisplayName("Planificacion de la investigacion")]
+        [DisplayName("Planificacion de la investigacion (20%)")]
         public Nullable<int> notaPlanificacion { get; set; }
 
-        [DisplayName("Ejecucion y reporte de la investigacion")]
+        [DisplayName("Ejecucion y reporte de la investigacion (30%)")]
         public Nullable<int> notaEjecucionReporte { get; set; }
 
-        [DisplayName("Video de la investigacion")]
+        [DisplayName("Video de la investigacion (30%)")]
         public Nullable<int> notaVideo { get; set; }
 
-        [DisplayName("Presentacion de la investigacion  (20%)")]
+        [DisplayName("Presentacion de la investigacion (20%)")]
         public Nullable<int> notaPresentacion { get; set; }
 
         [DisplayName("Examenes del curso  (20%)")]

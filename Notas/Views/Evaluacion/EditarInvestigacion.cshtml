@@ -22,55 +22,38 @@
                 <div class="col-md-12">
                     <div class="form-group" id="fields">
                         @Html.LabelFor(model => model.notaPlanificacion)
-                        @Html.TextBoxFor(model => model.notaPlanificacion, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.notaPlanificacion, new { @class = "form-control", @type = "number", @min = 0, @max = 100 })
                         <br />
                         @Html.ValidationMessageFor(model => model.notaPlanificacion, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group" id="fields">
                         @Html.LabelFor(model => model.notaEjecucionReporte)
-                        @Html.TextBoxFor(model => model.notaEjecucionReporte, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.notaEjecucionReporte, new { @class = "form-control", @type = "number", @min = 0, @max = 100 })
                         <br />
                         @Html.ValidationMessageFor(model => model.notaEjecucionReporte, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group" id="fields">
                         @Html.LabelFor(model => model.notaPresentacion)
-                        @Html.TextBoxFor(model => model.notaPresentacion, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.notaPresentacion, new { @class = "form-control", @type = "number", @min = 0, @max = 100 })
                         <br />
                         @Html.ValidationMessageFor(model => model.notaPresentacion, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group" id="fields">
                         @Html.LabelFor(model => model.notaVideo)
-                        @Html.TextBoxFor(model => model.notaVideo, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.notaVideo, new { @class = "form-control", @type = "number", @min = 0, @max = 100 })
                         <br />
                         @Html.ValidationMessageFor(model => model.notaVideo, "", new { @class = "text-danger" })
                     </div>
-                    <input type="submit" value="Editar" class="btn btn-primary" />
+                    <input type="submit" value="Calificar" class="btn btn-primary" />
                 </div>
             </div>
             <br />
         }
     </div>
-    @*<button id="btnAddField" class="btn btn-primary">Agregar</button>*@
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var $fields = $('#fields');
-        $('#btnAddField').click(function (e) {
-            e.preventDefault();
-            $('<input class="form-control" name="dynamicField type="text" /><br/>').appendTo($fields);
-        });
-    });
-
-</script>
-
-@*
-    <div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
-    <input class="form-control" data-val="true" data-val-number="The field evaluacionId must be a number." data-val-required="The evaluacionId field is required." id="evaluacionId" name="evaluacionId" type="text" value="2">*@
-
 <div>
     @Html.ActionLink("Regresar", "Index")
 </div>

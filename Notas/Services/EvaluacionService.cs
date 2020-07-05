@@ -114,5 +114,98 @@ namespace Notas.Services
             sd.Fill(dt);
             con.Close();
         }
+
+        public void ModificarParticipacion(EvaluacionModel evaluacion, string carne)
+        {
+            connection();
+            string consulta =
+               "UPDATE Evaluacion " +
+               "SET participacionForos = @participacion*0.2 " +
+               "WHERE evaluacionId = (SELECT evaluacionIdFK FROM Tiene WHERE carneEstudianteFK = @carne) ";
+
+            cmd.CommandText = consulta;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@carne", carne);
+            cmd.Parameters.AddWithValue("@participacion", evaluacion.participacionForos);
+
+            sd.SelectCommand = cmd;
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+        }
+
+        public void ModificarExamenes(string[] notas, string carne)
+        {
+            connection();
+            string consulta =
+               "UPDATE Evaluacion " +
+               "SET notaParciales = @notaParciales*0.2 " +
+               "WHERE evaluacionId = (SELECT evaluacionIdFK FROM Tiene WHERE carneEstudianteFK = @carne) ";
+
+            cmd.CommandText = consulta;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@carne", carne);
+            cmd.Parameters.AddWithValue("@notaParciales", SacarPromedio(notas));
+
+            sd.SelectCommand = cmd;
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+        }
+
+        public void ModificarLaboratorios(string[] notas, string carne)
+        {
+            connection();
+            string consulta =
+               "UPDATE Evaluacion " +
+               "SET notaLabs = @notaLaboratorios*0.2 " +
+               "WHERE evaluacionId = (SELECT evaluacionIdFK FROM Tiene WHERE carneEstudianteFK = @carne) ";
+
+            cmd.CommandText = consulta;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@carne", carne);
+            cmd.Parameters.AddWithValue("@notaLaboratorios", SacarPromedio(notas));
+
+            sd.SelectCommand = cmd;
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+        }
+
+        public void ModificarCCQT(string[] notas, string carne)
+        {
+            connection();
+            string consulta =
+               "UPDATE Evaluacion " +
+               "SET notaCCQT = @notas*0.2 " +
+               "WHERE evaluacionId = (SELECT evaluacionIdFK FROM Tiene WHERE carneEstudianteFK = @carne) ";
+
+            cmd.CommandText = consulta;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@carne", carne);
+            cmd.Parameters.AddWithValue("@notas", SacarPromedio(notas));
+
+            sd.SelectCommand = cmd;
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+        }
+
+        public int SacarPromedio(string[] notas) {
+            int valor = 0;
+            if(notas != null) {
+                for (var i = 0; i < notas.Length; ++i)
+                {
+                    valor += int.Parse(notas[i]);
+                }
+                valor = valor / notas.Length;
+            }
+            
+            return valor;
+        }
     }
 }

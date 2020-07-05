@@ -41,7 +41,7 @@ namespace Notas.Controllers
         {
             evaluacionService.ModificarInvestigacion(evaluacion, carne);
             TempData["mensaje"] = "La investigacion ha sido calificada.";
-            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne = carne});
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne});
         }
 
         public ActionResult EditarParticipacion(string carne)
@@ -53,17 +53,63 @@ namespace Notas.Controllers
         [HttpPost]
         public ActionResult CalificarParticipacion(EvaluacionModel evaluacion, string carne)
         {
-            evaluacionService.ModificarInvestigacion(evaluacion, carne);
+            evaluacionService.ModificarParticipacion(evaluacion, carne);
             TempData["mensaje"] = "La participacion en foros ha sido calificada.";
-            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne = carne });
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne });
+        }
+
+        public ActionResult EditarExamenes(string carne)
+        {
+            ViewBag.carne = carne;
+            return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
         [HttpPost]
-        public ActionResult CalificarAlgo(string[] dynamicField, string carne)
+        public ActionResult CalificarExamenes(string[] notas, string carne)
         {
-            ViewBag.Data = string.Join(",", dynamicField ?? new string[] { });
-            TempData["mensaje"] = "La investigacion ha sido calificada.";
-            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne = carne });
+            //ViewBag.Data = string.Join(",", notas ?? new string[] { });
+            evaluacionService.ModificarExamenes(notas, carne);
+            TempData["mensaje"] = "Los examenes han sido calificados.";
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne });
+        }
+
+        public ActionResult EditarLaboratorios(string carne)
+        {
+            ViewBag.carne = carne;
+            return View(evaluacionService.GetEvaluacionEstudiante(carne));
+        }
+
+        [HttpPost]
+        public ActionResult CalificarLaboratorios(string[] notas, string carne)
+        {
+            //ViewBag.Data = string.Join(",", notas ?? new string[] { });
+            evaluacionService.ModificarLaboratorios(notas, carne);
+            TempData["mensaje"] = "Los laboratorios han sido calificados.";
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne });
+        }
+
+        public ActionResult EditarCCQT(string carne)
+        {
+            ViewBag.carne = carne;
+            return View(evaluacionService.GetEvaluacionEstudiante(carne));
+        }
+
+        [HttpPost]
+        public ActionResult CalificarCCQT(string[] notas, string carne)
+        {
+            bool valido = false;
+            int i = 0;
+            while (valido == false) {
+                if (notas[i] != "") {
+                    i += 1;
+                }
+            }
+            if(valido == true)
+            {
+                evaluacionService.ModificarCCQT(notas, carne);
+            }
+            TempData["mensaje"] = "Los laboratorios han sido calificados.";
+            return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne });
         }
     }
 }

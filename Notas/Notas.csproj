@@ -356,6 +356,9 @@
     <Content Include="Views\Evaluacion\VerEvaluacion.cshtml" />
     <Content Include="Views\Evaluacion\EditarInvestigacion.cshtml" />
     <Content Include="Views\Evaluacion\EditarParticipacion.cshtml" />
+    <Content Include="Views\Evaluacion\EditarExamenes.cshtml" />
+    <Content Include="Views\Evaluacion\EditarLaboratorios.cshtml" />
+    <Content Include="Views\Evaluacion\EditarCCQT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -392,8 +395,6 @@
           <DevelopmentServerPort>56987</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:56987</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:56987/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

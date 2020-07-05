@@ -21,10 +21,11 @@
     <nav class="topnav navbar-fixed-top main-font">
         <div class="container-fluid">
             <div class="container">
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Estudiantes", "VerEstudiantes", "Estudiante")</li>
-                </ul>
+                @Html.ActionLink("Curso", "VerEstudiantes", "Estudiante")
+                @*@Html.ActionLink("Estudiantes", "VerEstudiantes", "Estudiante")*@
+                @*<ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Estudiantes", "VerEstudiantes", "Estudiante")</li>
+        </ul>*@
             </div>
 
         </div><!--/.container-fluid -->

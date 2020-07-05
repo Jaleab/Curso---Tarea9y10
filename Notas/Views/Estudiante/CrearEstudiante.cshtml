@@ -1,9 +1,15 @@
 ﻿@model Notas.Models.EstudianteModel
 
 @{
+    /**/
+
     ViewBag.Title = "Agregar estudiante";
 }
-
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <h2>Agregar estudiante al curso</h2>
 
 
@@ -12,7 +18,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Estudiante</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

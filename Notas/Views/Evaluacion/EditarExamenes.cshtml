@@ -4,7 +4,7 @@
     ViewBag.Title = "EditarInvestigacion";
 }
 
-<h2>Calificar participacion en foros</h2>
+<h2>Calificar examenes parciales</h2>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -13,18 +13,19 @@
 
 
 <div class="shadow" style="padding: 25px; border-radius: 25px; background-color:white;">
-
     <div class="row" style="margin-left: 0px;margin-right: 0px;">
-        @using (Html.BeginForm("CalificarParticipacion", "Evaluacion", new { carne = ViewBag.carne }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("CalificarExamenes", "Evaluacion", new { carne = ViewBag.carne }, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group" id="fields">
-                        @Html.LabelFor(model => model.participacionForos)
-                        @Html.TextBoxFor(model => model.participacionForos, new { @class = "form-control", @type = "number", @min = 0, @max = 100 })
-                        <br />
-                        @Html.ValidationMessageFor(model => model.participacionForos, "", new { @class = "text-danger" })
+                    <div class="form-group" id="examenes">
+                        <label for="notasExamenes">Primer examen</label>
+                        <input class="form-control" name="notas" type="number" min="0" max="100" /><br />
+                    </div>
+                    <div class="form-group" id="examenes">
+                        <label for="notasExamenes">Segundo examen</label>
+                        <input class="form-control" name="notas" type="number" min="0" max="100" /><br />
                     </div>
                     <input type="submit" value="Calificar" class="btn btn-primary" />
                 </div>
@@ -32,18 +33,8 @@
             <br />
         }
     </div>
+    
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var $fields = $('#fields');
-        $('#btnAddField').click(function (e) {
-            e.preventDefault();
-            $('<input class="form-control" name="dynamicField type="text" /><br/>').appendTo($fields);
-        });
-    });
-
-</script>
 <div>
     @Html.ActionLink("Regresar", "Index")
 </div>

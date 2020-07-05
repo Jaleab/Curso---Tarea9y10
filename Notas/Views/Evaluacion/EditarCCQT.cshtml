@@ -1,0 +1,126 @@
+﻿@model Notas.Models.EvaluacionModel
+
+@{
+    /**/
+
+    ViewBag.Title = "CCQT";
+}
+
+<h2>Calificar laboratorios</h2>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<div class="shadow" style="padding: 25px; border-radius: 25px; background-color:white;">
+    <div class="row" style="margin-left: 0px;margin-right: 0px;">
+        @using (Html.BeginForm("CalificarCCQT", "Evaluacion", new { carne = ViewBag.carne }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Tareas</h4>
+                    <div class="form-group" id="tareas">
+                    </div>
+                    <button id="btnAddTarea" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Clases virtuales</h4>
+                    <div class="form-group" id="clases">
+                    </div>
+                    <button id="btnAddClase" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Examenes cortos</h4>
+                    <div class="form-group" id="quices">
+                    </div>
+                    <button id="btnAddQuiz" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Comprobaciones de lectura </h4>
+                    <div class="form-group" id="comprobaciones">
+                    </div>
+                    <button id="btnAddComprobacion" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                </div>
+            </div>
+            <br />
+
+            <input type="submit" value="Calificar" class="btn btn-primary" />
+        }
+    </div>
+
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            var numComprobaciones = 1;
+            var numQuiz = 1;
+            var numTareas = 1;
+            var numClases = 1;
+            var fieldsCount = 0;
+            var maxFields = 30;
+            var $comprobaciones = $('#comprobaciones');
+            var $quices= $('#quices');
+            var $tareas = $('#tareas');
+            var $clases = $('#clases');
+            $('#btnAddComprobacion').click(function (e) {
+                if (fieldsCount < maxFields) {
+                    e.preventDefault();
+                    $('<label for="notasExamenes">Comprobacion de lectura #' + (numComprobaciones) + '</label > ').appendTo($comprobaciones);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100"/><br />').appendTo($comprobaciones);
+                    numComprobaciones += 1;
+                    fieldsCount += 1;
+                }
+            });
+            $('#btnAddQuiz').click(function (e) {
+                if (fieldsCount < maxFields) {
+                    e.preventDefault();
+                    $('<label for="notasExamenes">Examen corto #' + (numQuiz) + '</label > ').appendTo($quices);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100" /><br />').appendTo($quices);
+                    fieldsCount += 1;
+                    numQuiz += 1;
+                }
+            });
+            $('#btnAddTarea').click(function (e) {
+                if (fieldsCount < maxFields) {
+                    e.preventDefault();
+                    $('<label for="notasExamenes">Tarea #' + (numTareas) + '</label > ').appendTo($tareas);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100" /><br />').appendTo($tareas);
+                    fieldsCount += 1;
+                    numTareas += 1;
+                }
+            });
+            $('#btnAddClase').click(function (e) {
+                if (fieldsCount < maxFields) {
+                    e.preventDefault();
+                    $('<label for="notasExamenes">Clase #' + (numClases) + '</label > ').appendTo($clases);
+                    $('<input class="form-control" name="notas" type="number" min="0" max="100" /><br />').appendTo($clases);
+                    fieldsCount += 1;
+                    numClases += 1;
+                }
+            });
+        });
+
+</script>
+
+@*<div style="color:blue"><b>Data:</b> @ViewBag.Data</div>
+    <input class="form-control" data-val="true" data-val-number="The field evaluacionId must be a number." data-val-required="The evaluacionId field is required." id="evaluacionId" name="evaluacionId" type="text" value="2">*@
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
