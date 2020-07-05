@@ -6,21 +6,20 @@ namespace Notas.Controllers
 {
     public class EstudianteController : Controller
     {
-        // GET: Estudiante
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult VerEstudiantes()
         {
             EstudianteService estudianteService = new EstudianteService();
+            if (TempData["mensaje"] != null)
+            {
+                ViewBag.mensaje = TempData["mensaje"];
+            }
             return View(estudianteService.GetEstudiantes());
         }
 
         public ActionResult CrearEstudiante()
         {
-            EstudianteService estudianteService = new EstudianteService();
+            EstudianteService estudianteService = new EstudianteService();         
             return View();
         }
         

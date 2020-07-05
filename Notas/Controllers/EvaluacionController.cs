@@ -11,28 +11,21 @@ namespace Notas.Controllers
     public class EvaluacionController : Controller
     {
         EvaluacionService evaluacionService = new EvaluacionService();
-        // GET: Curso
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Create(EvaluacionModel evaluacion)
-        {
-            //cursoService.AgregarCurso(evaluacion);
-            //TempData["mensaje"] = "El curso " + curso.nombre+ " ha sido agregado al curso.";
-            return RedirectToAction("VerEstudiantes", "Estudiante");
-        }
 
         public ActionResult VerEvaluacion(string carne)
         {
             ViewBag.carne = carne;
+            if (TempData["mensaje"] != null)
+            {
+                ViewBag.mensaje = TempData["mensaje"];
+            }
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
         public ActionResult EditarInvestigacion(string carne)
         {
             ViewBag.carne = carne;
+            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
@@ -47,6 +40,7 @@ namespace Notas.Controllers
         public ActionResult EditarParticipacion(string carne)
         {
             ViewBag.carne = carne;
+            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
@@ -61,13 +55,13 @@ namespace Notas.Controllers
         public ActionResult EditarExamenes(string carne)
         {
             ViewBag.carne = carne;
+            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
         [HttpPost]
         public ActionResult CalificarExamenes(string[] notas, string carne)
         {
-            //ViewBag.Data = string.Join(",", notas ?? new string[] { });
             evaluacionService.ModificarExamenes(notas, carne);
             TempData["mensaje"] = "Los examenes han sido calificados.";
             return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne });
@@ -76,13 +70,13 @@ namespace Notas.Controllers
         public ActionResult EditarLaboratorios(string carne)
         {
             ViewBag.carne = carne;
+            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
         [HttpPost]
         public ActionResult CalificarLaboratorios(string[] notas, string carne)
         {
-            //ViewBag.Data = string.Join(",", notas ?? new string[] { });
             evaluacionService.ModificarLaboratorios(notas, carne);
             TempData["mensaje"] = "Los laboratorios han sido calificados.";
             return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne });
@@ -91,25 +85,31 @@ namespace Notas.Controllers
         public ActionResult EditarCCQT(string carne)
         {
             ViewBag.carne = carne;
+            EvaluacionModel evaluacion = new EvaluacionModel();
             return View(evaluacionService.GetEvaluacionEstudiante(carne));
         }
 
         [HttpPost]
         public ActionResult CalificarCCQT(string[] notas, string carne)
         {
-            bool valido = true;
-            int i = 0;
-            while (valido == true && i < notas.Length) {
-                if (notas[i] == "") {
-                    valido = false;
+            if(notas != null) {
+                bool valido = true;
+                int i = 0;
+                while (valido == true && i < notas.Length)
+                {
+                    if (notas[i] == "")
+                    {
+                        valido = false;
+                    }
+                    i += 1;
                 }
-                i += 1;
+                if (valido == true)
+                {
+                    evaluacionService.ModificarCCQT(notas, carne);
+                }
             }
-            if(valido == true)
-            {
-                evaluacionService.ModificarCCQT(notas, carne);
-            }
-            TempData["mensaje"] = "Los laboratorios han sido calificados.";
+            
+            TempData["mensaje"] = "Las comprobaciones de lectura, clases virtuales, examenes cortos y tareas han sido calificados.";
             return RedirectToAction("VerEvaluacion", "Evaluacion", new { carne });
         }
     }

@@ -23,6 +23,7 @@ namespace Notas.Services
         public EvaluacionModel GetEvaluacionEstudiante(string carne)
         {
             connection();
+            EvaluacionModel evaluacion = new EvaluacionModel();
             string consulta =
                 "SELECT Eva.evaluacionId, Eva.notasTareas, Eva.notasComprobaciones, Eva.notasExamenesCortos, Eva.notasClases, ISNULL(Eva.participacionForos, 0) AS [Participacion foros], " +
                 "ISNULL(Eva.notainvestigacion, 0) AS [Investigacion], ISNULL(Eva.notaPlanificacion, 0) AS [Planificacion], ISNULL(Eva.notaEjecucionReporte, 0) AS [Ejecucion reporte], "+
@@ -41,11 +42,8 @@ namespace Notas.Services
 
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
 
-            EvaluacionModel evaluacion = new EvaluacionModel();
             if (dt.Rows.Count > 0)
             {
                 DataRow dr = dt.Rows[0];
@@ -67,7 +65,6 @@ namespace Notas.Services
                 evaluacion.notaParciales = Convert.ToInt32(dr["Parciales"]);
             }
             return evaluacion;
-
         }
 
         public void AgregarEvaluacion(string carne)
@@ -85,9 +82,7 @@ namespace Notas.Services
 
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
         }
 
         public void ModificarInvestigacion(EvaluacionModel evaluacion, string carne)
@@ -110,9 +105,7 @@ namespace Notas.Services
 
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
         }
 
         public void ModificarParticipacion(EvaluacionModel evaluacion, string carne)
@@ -130,9 +123,7 @@ namespace Notas.Services
 
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
         }
 
         public void ModificarExamenes(string[] notas, string carne)
@@ -150,9 +141,7 @@ namespace Notas.Services
 
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
         }
 
         public void ModificarLaboratorios(string[] notas, string carne)
@@ -170,9 +159,7 @@ namespace Notas.Services
 
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
         }
 
         public void ModificarCCQT(string[] notas, string carne)
@@ -190,22 +177,36 @@ namespace Notas.Services
 
             sd.SelectCommand = cmd;
 
-            con.Open();
-            sd.Fill(dt);
-            con.Close();
+            SetDataTable();
         }
 
-        public int SacarPromedio(string[] notas) {
+        private int SacarPromedio(string[] notas) {
             int valor = 0;
-            if(notas != null) {
+            if(notas != null && notas.Length > 0) {
                 for (var i = 0; i < notas.Length; ++i)
                 {
-                    valor += int.Parse(notas[i]);
+                    if (notas[i] != "")
+                    {
+                        valor += int.Parse(notas[i]);
+                    }
                 }
                 valor = valor / notas.Length;
             }
             
             return valor;
+        }
+
+        private void SetDataTable() {
+            con.Open();
+            try
+            {
+                sd.Fill(dt);
+            }
+            catch (Exception e)
+            {
+
+            }
+            con.Close();
         }
     }
 }

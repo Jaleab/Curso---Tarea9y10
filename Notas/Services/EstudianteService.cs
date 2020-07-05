@@ -66,14 +66,18 @@ namespace Notas.Services
             SqlCommand cmd = new SqlCommand(consulta, con);
             cmd.Parameters.AddWithValue("@carne", estudiante.carne);
             cmd.Parameters.AddWithValue("@nombre", infoEstudiante[0]);
-            cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
             if (infoEstudiante.Length > 2)
             {
+                cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
                 cmd.Parameters.AddWithValue("@apellido2", infoEstudiante[2]);
             }
             else
             {
-                cmd.Parameters.AddWithValue("@apellido2", null);
+                if (infoEstudiante.Length == 2)
+                {
+                    cmd.Parameters.AddWithValue("@apellido", infoEstudiante[1]);
+                    cmd.Parameters.AddWithValue("@apellido2", " ");
+                }                    
             }
 
             SqlDataAdapter sd = new SqlDataAdapter(cmd);

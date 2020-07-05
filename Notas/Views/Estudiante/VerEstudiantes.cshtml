@@ -7,6 +7,14 @@
 }
 
 <h2>Estudiantes del curso</h2>
+@{
+    if (ViewBag.mensaje != null)
+    {
+        <div class="text-success">
+            @ViewBag.mensaje
+        </div>
+    }
+}
 <hr />
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -48,4 +56,3 @@
         <a href="@Url.Action("CrearEstudiante", "Estudiante")" class="btn btn-primary" role="button">Agregar estudiante</a>
     </p>
 </body>
-</html>
