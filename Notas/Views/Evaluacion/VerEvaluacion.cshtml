@@ -14,7 +14,15 @@
             @ViewBag.mensaje
         </div>
     }
+
+    var nota = Model.notaInvestigacion+Model.notaCCQT+Model.notaLabs+Model.participacionForos+Model.notaParciales;
+    if (Model.notaCCQT != null)
+    {
+        <h2>Nota del curso: @nota</h2>
+    }
 }
+
+
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
